@@ -3,9 +3,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{77168883-3A52-43A7-B3CD-32333999A963}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElasticSearch.API", "ElasticSearch.API\ElasticSearch.API.csproj", "{5A59EE41-37F5-445B-8A86-6E917BB0ECCA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{5F0C20A9-01C4-4E5D-B981-F11ADC158030}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A59EE41-37F5-445B-8A86-6E917BB0ECCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A59EE41-37F5-445B-8A86-6E917BB0ECCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A59EE41-37F5-445B-8A86-6E917BB0ECCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A59EE41-37F5-445B-8A86-6E917BB0ECCA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5A59EE41-37F5-445B-8A86-6E917BB0ECCA} = {77168883-3A52-43A7-B3CD-32333999A963}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {21FFDC69-C7B8-4F71-A777-E1C673F92555}

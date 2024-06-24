@@ -1,6 +1,8 @@
 using Elasticsearch.Net;
 using Nest;
 using ElasticSearch.API.Extensions;
+using ElasticSearch.API.Services;
+using ElasticSearch.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,10 +11,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
+builder.Services.AddElastic(builder.Configuration);
+builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<ProductRepository>();
 var app = builder.Build();
 
-builder.Services.AddElastic(builder.Configuration);
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

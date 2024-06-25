@@ -16,5 +16,8 @@ namespace ElasticSearch.API.DTOs
         public static ResponseDto<T>Fail(List<string> errors,HttpStatusCode status) {
         return new ResponseDto<T> { Status = status, Errors = errors };
         }
+        public static ResponseDto<T> Fail(string error, HttpStatusCode status)
+        {
+            return new ResponseDto<T> { Errors = new List<string>() { error }, Status = status }};
     }
 }

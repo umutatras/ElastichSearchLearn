@@ -52,5 +52,13 @@ namespace ElasticSearch.API.Services
 
 
         }
+        public async Task<ResponseDto<bool>> DeleteAsync(string id)
+        {
+            var response = await _repository.DeleteAsync(id);
+            if (!response)
+                return ResponseDto<bool>.Fail(new List<string> { "kayıt esnasında bir hata meydana geldi" }, System.Net.HttpStatusCode.InternalServerError);
+
+            return ResponseDto<bool>.Success(true, System.Net.HttpStatusCode.NoContent);
+        }
     }
 }

@@ -49,7 +49,7 @@ namespace ElasticSearch.API.Repositories
             {
                 return null;
             }
-
+            response.Source.Id=response.Id;
             return response.Source;
         }
 

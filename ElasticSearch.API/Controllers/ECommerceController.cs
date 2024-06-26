@@ -23,5 +23,17 @@ namespace ElasticSearch.API.Controllers
            var result= await _repository.TermQuery(customerfirstName);
             return result;
         }
+        [HttpPost]
+        public async Task<ImmutableList<ECommerce>> TermsQuery(List<string> customerfirstNameList)
+        {
+            var result = await _repository.TermsQuery(customerfirstNameList);
+            return result;
+        }
+        [HttpGet]
+        public async Task<ImmutableList<ECommerce>> TermsQuery(string customerFullName)
+        {
+            var result = await _repository.PrefixQuery(customerFullName);
+            return result;
+        }
     }
 }

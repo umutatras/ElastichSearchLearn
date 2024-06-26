@@ -19,7 +19,7 @@ namespace ElasticSearch.API.Models.ECommerce
         [JsonPropertyName("category")]
         public string[] Category { get; set; } = null!;
         [JsonPropertyName("taxful_total_price")]
-        public decimal TaxfulTotalPrice { get; set; }
+        public double TaxfulTotalPrice { get; set; }
 
         [JsonPropertyName("order_id")]
         public int OrderId { get; set; }

@@ -35,5 +35,11 @@ namespace ElasticSearch.API.Controllers
             var result = await _repository.PrefixQuery(customerFullName);
             return result;
         }
+        [HttpGet]
+        public async Task<ImmutableList<ECommerce>> RangeQuery(double from,double to)
+        {
+            var result = await _repository.RangeQuery(from,to);
+            return result;
+        }
     }
 }

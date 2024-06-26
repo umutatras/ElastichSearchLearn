@@ -57,5 +57,17 @@ namespace ElasticSearch.API.Repositories
             return result.Documents.ToImmutableList();
 
         }
+        public async Task<ImmutableList<ECommerce>> RangeQuery(double fromPrice, double toPrice)
+        {
+            var result = await _client.SearchAsync<ECommerce>(s => s.Index(indexName)
+            .Query(q => q.
+            Range(r => r.
+            NumberRange(nr => nr.
+            Field(f => f.TaxfulTotalPrice).
+            Gt(fromPrice).
+            Lte(toPrice)))));
+            return result.Documents.ToImmutableList();
+
+        }
     }
 }

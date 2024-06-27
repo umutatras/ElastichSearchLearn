@@ -69,5 +69,18 @@ namespace ElasticSearch.API.Repositories
             return result.Documents.ToImmutableList();
 
         }
+
+        public async Task<ImmutableList<ECommerce>> MathcAllAsync()
+        {
+            var result = await _client.SearchAsync<ECommerce>(s => s.Index(indexName).Size(100).Query(q => q.MatchAll()));
+
+            foreach (var hit in result.Hits)
+            {
+                hit.Source.Id = hit.Id;
+
+            }
+            return result.Documents.ToImmutableList();
+
+        }
     }
 }

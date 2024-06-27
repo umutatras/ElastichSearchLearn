@@ -41,5 +41,11 @@ namespace ElasticSearch.API.Controllers
             var result = await _repository.RangeQuery(from,to);
             return result;
         }
+        [HttpGet]
+        public async Task<ImmutableList<ECommerce>> MatchAll()
+        {
+            var result = await _repository.MathcAllAsync();
+            return result;
+        }
     }
 }

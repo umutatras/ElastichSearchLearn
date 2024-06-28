@@ -8,7 +8,7 @@ using System.Globalization;
 namespace ElasticSearch.API.Controllers
 {
     [Route("api/[controller]/[action]")]
-    [ApiController] 
+    [ApiController]
     public class ECommerceController : ControllerBase
     {
         private readonly ECommerceRepository _repository;
@@ -21,7 +21,7 @@ namespace ElasticSearch.API.Controllers
         [HttpGet]
         public async Task<ImmutableList<ECommerce>> TermQuery(string customerfirstName)
         {
-           var result= await _repository.TermQuery(customerfirstName);
+            var result = await _repository.TermQuery(customerfirstName);
             return result;
         }
         [HttpPost]
@@ -37,9 +37,9 @@ namespace ElasticSearch.API.Controllers
             return result;
         }
         [HttpGet]
-        public async Task<ImmutableList<ECommerce>> RangeQuery(double from,double to)
+        public async Task<ImmutableList<ECommerce>> RangeQuery(double from, double to)
         {
-            var result = await _repository.RangeQuery(from,to);
+            var result = await _repository.RangeQuery(from, to);
             return result;
         }
         [HttpGet]
@@ -49,9 +49,9 @@ namespace ElasticSearch.API.Controllers
             return result;
         }
         [HttpGet]
-        public async Task<ImmutableList<ECommerce>> Pagination(int page,int pageSize)
+        public async Task<ImmutableList<ECommerce>> Pagination(int page, int pageSize)
         {
-            var result = await _repository.PaginationQuery(page,pageSize);
+            var result = await _repository.PaginationQuery(page, pageSize);
             return result;
         }
 
@@ -65,6 +65,24 @@ namespace ElasticSearch.API.Controllers
         public async Task<ImmutableList<ECommerce>> FuzzyQuery(string customerName)
         {
             var result = await _repository.FuzzyQuery(customerName);
+            return result;
+        }
+        [HttpGet]
+        public async Task<ImmutableList<ECommerce>> MatchQueryFullText(string categoryName)
+        {
+            var result = await _repository.MatchQueryFullTextAsync(categoryName);
+            return result;
+        }
+        [HttpGet]
+        public async Task<ImmutableList<ECommerce>> MatchBoolPrefixFullText(string customerFullName)
+        {
+            var result = await _repository.MatchBoolPrefixFullTextAsync(customerFullName);
+            return result;
+        }
+        [HttpGet]
+        public async Task<ImmutableList<ECommerce>> MatchPhraseFullText(string customerFullName)
+        {
+            var result = await _repository.MatchPhraseFullTextAsync(customerFullName);
             return result;
         }
     }

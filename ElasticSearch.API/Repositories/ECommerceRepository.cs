@@ -82,5 +82,39 @@ namespace ElasticSearch.API.Repositories
             return result.Documents.ToImmutableList();
 
         }
+        public async Task<ImmutableList<ECommerce>> PaginationQuery(int page,int pageSize)
+        {
+            var pageFrom = (page - 1) * pageSize;
+            var result = await _client.SearchAsync<ECommerce>(s => s.Index(indexName).Size(pageSize).From(pageFrom).Query(q => q.MatchAll()));
+
+            foreach (var hit in result.Hits)
+            {
+                hit.Source.Id = hit.Id;
+
+            }
+            return result.Documents.ToImmutableList();
+
+        }
+
+        public async Task<ImmutableList<ECommerce>> WildCardQuery(string customerFullName)
+        {
+            var result = await _client.SearchAsync<ECommerce>(s => s.Index(indexName).Query(q => q.Wildcard(w => w.Field(f => f.CustomerFullName.Suffix("keyword")).Wildcard(customerFullName))));
+            foreach (var hit in result.Hits)
+            {
+                hit.Source.Id=hit.Id;
+
+            }
+            return result.Documents.ToImmutableList();
+        }
+        public async Task<ImmutableList<ECommerce>> FuzzyQuery(string customerName)
+        {
+            var result = await _client.SearchAsync<ECommerce>(s => s.Index(indexName).Query(q => q.Fuzzy(fu=>fu.Field(f=>f.CustomerFirstName.Suffix("keyword")).Value(customerName).Fuzziness(new Fuzziness(1)))).Sort(sort=>sort.Field(field=>field.TaxfulTotalPrice,new FieldSort() { Order=SortOrder.Desc})));
+            foreach (var hit in result.Hits)
+            {
+                hit.Source.Id = hit.Id;
+
+            }
+            return result.Documents.ToImmutableList();
+        }
     }
 }

@@ -3,6 +3,7 @@ using ElasticSearch.API.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Immutable;
+using System.Globalization;
 
 namespace ElasticSearch.API.Controllers
 {
@@ -45,6 +46,25 @@ namespace ElasticSearch.API.Controllers
         public async Task<ImmutableList<ECommerce>> MatchAll()
         {
             var result = await _repository.MathcAllAsync();
+            return result;
+        }
+        [HttpGet]
+        public async Task<ImmutableList<ECommerce>> Pagination(int page,int pageSize)
+        {
+            var result = await _repository.PaginationQuery(page,pageSize);
+            return result;
+        }
+
+        [HttpGet]
+        public async Task<ImmutableList<ECommerce>> WildCard(string customerFullName)
+        {
+            var result = await _repository.WildCardQuery(customerFullName);
+            return result;
+        }
+        [HttpGet]
+        public async Task<ImmutableList<ECommerce>> FuzzyQuery(string customerName)
+        {
+            var result = await _repository.FuzzyQuery(customerName);
             return result;
         }
     }

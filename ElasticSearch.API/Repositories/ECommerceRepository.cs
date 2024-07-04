@@ -168,6 +168,16 @@ namespace ElasticSearch.API.Repositories
             }
             return result.Documents.ToImmutableList();
         }
+        public async Task<ImmutableList<ECommerce>> MultiMatchQueryFullTextAsync(string name)
+        {
+            var result = await _client.SearchAsync<ECommerce>(s => s.Index(indexName).Query(q => q.MultiMatch(mm=>mm.Fields(new Field("customer_firs_name").And(new Field("customer_last_name")).And(new Field("customer_fullname"))).Query(name))));
+            foreach (var hit in result.Hits)
+            {
+                hit.Source.Id = hit.Id;
+
+            }
+            return result.Documents.ToImmutableList();
+        }
 
 
 

@@ -94,6 +94,10 @@ namespace ElasticSearch.API.Controllers
         {
             var result = await _repository.CompundQueryTwo(customerFullName);
             return result;
+        }   public async Task<ImmutableList<ECommerce>> MultiMatchQueryFullTextAsync(string name)
+        {
+            var result = await _repository.MultiMatchQueryFullTextAsync(name);
+            return result;
         }
     }
 }

@@ -84,6 +84,11 @@ namespace ElasticSearch.API.Controllers
         {
             var result = await _repository.MatchPhraseFullTextAsync(customerFullName);
             return result;
+        }     [HttpGet]
+        public async Task<ImmutableList<ECommerce>> CompoundQuery(string customerFullName, string cityName, string categoryName)
+        {
+            var result = await _repository.CompoundQueryAsync(customerFullName, cityName, categoryName);
+            return result;
         }
     }
 }

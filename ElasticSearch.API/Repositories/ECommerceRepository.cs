@@ -146,6 +146,19 @@ namespace ElasticSearch.API.Repositories
             }
             return result.Documents.ToImmutableList();
         }
+        public async Task<ImmutableList<ECommerce>> CompoundQueryAsync(string customerFullName,string cityName,string categoryName)
+        {
+            var result = await _client.SearchAsync<ECommerce>(s => s.Index(indexName).Query(q => q.Bool(b=>b.Must(m=>m.Term(t=>t.Field("geoip.city_name").Value(cityName))).MustNot(mn=>mn.Range(r=>r.NumberRange(nr=>nr.Field(f=>f.TaxfulTotalPrice).Lt(100)))).Should(s=>s.Term(t=>t.Field(f=>f.Category.Suffix("keyword")).Value(categoryName)))
+            .Filter(f=>f.Term(t=>t.Field("manufacturer.keyword").Value("Tigress Enterprises"))))));
+            foreach (var hit in result.Hits)
+            {
+                hit.Source.Id = hit.Id;
+
+            }
+            return result.Documents.ToImmutableList();
+        }
+
+
 
     }
 }

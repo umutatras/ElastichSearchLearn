@@ -90,5 +90,10 @@ namespace ElasticSearch.API.Controllers
             var result = await _repository.CompoundQueryAsync(customerFullName, cityName, categoryName);
             return result;
         }
+        public async Task<ImmutableList<ECommerce>> CompoundTwoQuery(string customerFullName, string cityName, string categoryName)
+        {
+            var result = await _repository.CompundQueryTwo(customerFullName);
+            return result;
+        }
     }
 }

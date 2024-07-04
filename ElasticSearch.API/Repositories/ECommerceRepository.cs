@@ -159,7 +159,8 @@ namespace ElasticSearch.API.Repositories
         }
         public async Task<ImmutableList<ECommerce>> CompundQueryTwo(string customerFullName)
         {
-            var result = await _client.SearchAsync<ECommerce>(s => s.Index(indexName).Query(q => q.Bool(b=>b.Must(m=>m.Match(ma=>ma.Field(f=>f.CustomerFullName).Query(customerFullName))))));
+            //var result = await _client.SearchAsync<ECommerce>(s => s.Index(indexName).Size(100).Query(q => q.MatchPhrasePrefix(m => m.Field(f => f.CustomerFullName).Query(customerFullName))));
+            var result = await _client.SearchAsync<ECommerce>(s => s.Index(indexName).Query(q => q.Bool(b=>b.Should(m=>m.Match(ma=>ma.Field(f=>f.CustomerFullName).Query(customerFullName)).Prefix(p=>p.Field(f=>f.CustomerFullName.Suffix("keyword")).Value(customerFullName))))));
             foreach (var hit in result.Hits)
             {
                 hit.Source.Id = hit.Id;

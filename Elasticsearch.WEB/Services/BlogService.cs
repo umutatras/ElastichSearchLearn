@@ -18,7 +18,7 @@ namespace Elasticsearch.WEB.Services
             newBlog.UserId = Guid.NewGuid();
             newBlog.Content= model.Content;
             newBlog.Title = model.Title;
-            newBlog.Tags = model.Tags.ToArray();  
+            newBlog.Tags = model.Tags.Split(",");  
             
             var data=await _blog.SaveAsync(newBlog);
             return data != null;

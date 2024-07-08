@@ -29,5 +29,10 @@ namespace Elasticsearch.WEB.Controllers
             TempData["result"] = "Kayıt başarılı";
             return RedirectToAction(nameof(BlogController.Save));
         }
+        public async Task<IActionResult> Search(string searchText)
+        {
+            var data = await this.blogService.SearchAsync(searchText);
+            return View(data);
+        }
     }
 }

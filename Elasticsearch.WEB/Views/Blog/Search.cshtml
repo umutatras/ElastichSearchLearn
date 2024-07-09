@@ -1,6 +1,6 @@
 ﻿@model List<Elasticsearch.WEB.ViewModel.BlogViewModel>
 @{
-	ViewData["Title"] = "SearchAsync";
+    ViewData["Title"] = "SearchAsync";
 
 }
 
@@ -19,14 +19,15 @@
         </form>
 
 
-@if(!Model.Any())
-		{
-        <div class="alert alert-info">
-            sonuç bulunamamıştır.</div>
-		}
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info">
+                sonuç bulunamamıştır.
+            </div>
+        }
 
-		else
-		{
+        else
+        {
 
             <table class="table">
 
@@ -44,27 +45,27 @@
 
                 </thead>
                 <tbody>
-@foreach (var blog in Model)
-					{
-                    <tr>
+                    @foreach (var blog in Model)
+                    {
+                        <tr>
 
-                        <td>@blog.Id</td>
-							<td>@blog.Title</td>
-							<td>@blog.Content</td>
-							<td>@blog.UserId</td>
-							<td>@blog.Tags</td>
-							<td>@blog.Created</td>
-						</tr>
-
-
+                            <td>@blog.Id</td>
+                            <td>@blog.Title</td>
+                            <td>@blog.Content</td>
+                            <td>@blog.UserId</td>
+                            <td>@blog.Tags</td>
+                            <td>@blog.Created</td>
+                        </tr>
 
 
-					}
+
+
+                    }
                 </tbody>
-                </table>
-}
+            </table>
+        }
 
-</div>
+    </div>
 
 
 

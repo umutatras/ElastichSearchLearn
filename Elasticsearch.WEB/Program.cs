@@ -6,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddElastic(builder.Configuration);
 builder.Services.AddScoped<BlogRepository>();
 builder.Services.AddScoped<BlogService>();
+builder.Services.AddScoped<ECommerceRepository>();
+builder.Services.AddScoped<ECommerceService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

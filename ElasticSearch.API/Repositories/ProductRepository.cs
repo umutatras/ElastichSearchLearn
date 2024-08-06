@@ -1,16 +1,16 @@
-﻿using ElasticSearch.API.DTOs;
+﻿using Elastic.Clients.Elasticsearch;
+using ElasticSearch.API.DTOs;
 using ElasticSearch.API.Models;
-using Nest;
 using System.Collections.Immutable;
 
 namespace ElasticSearch.API.Repositories
 {
     public class ProductRepository
     {
-        private readonly ElasticClient _client;
+        private readonly ElasticsearchClient _client;
         private const string indexName = "products123";
 
-        public ProductRepository(ElasticClient client)
+        public ProductRepository(ElasticsearchClient client)
         {
             _client = client;
         }
@@ -19,7 +19,7 @@ namespace ElasticSearch.API.Repositories
         {
             newProduct.Created = DateTime.Now;
             var response = await _client.IndexAsync(newProduct, x => x.Index(indexName).Id(Guid.NewGuid().ToString()));
-            if (!response.IsValid)
+            if (!response.IsSuccess())
             {
                 return null;
             }
@@ -46,7 +46,7 @@ namespace ElasticSearch.API.Repositories
         {
             var response = await _client.GetAsync<Product>(id, x => x.Index(indexName));
 
-            if(!response.IsValid)
+            if(!response.IsSuccess())
             {
                 return null;
             }
@@ -56,14 +56,14 @@ namespace ElasticSearch.API.Repositories
 
         public async Task<bool> UpdateAsync(ProductUpdateDto dto)
         {
-            var response=await _client.UpdateAsync<Product,ProductUpdateDto>(dto.Id,x=>x.Index(indexName).Doc(dto));
-            return response.IsValid;
+            var response = await _client.UpdateAsync<Product, ProductUpdateDto>(indexName, dto.Id, x => x.Doc(dto));
+            return response.IsSuccess();
         }
 
         public async Task<bool> DeleteAsync(string id)
         {
             var response=await _client.DeleteAsync<Product>(id,x=>x.Index(indexName)); 
-            return response.IsValid;
+            return response.IsSuccess();
         }
 
 

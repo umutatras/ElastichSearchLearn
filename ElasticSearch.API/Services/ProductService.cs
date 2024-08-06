@@ -1,8 +1,5 @@
 ﻿using ElasticSearch.API.DTOs;
-using ElasticSearch.API.Models;
 using ElasticSearch.API.Repositories;
-using Nest;
-using System.Collections.Immutable;
 using System.Net;
 
 namespace ElasticSearch.API.Services
@@ -44,8 +41,8 @@ namespace ElasticSearch.API.Services
         }
         public async Task<ResponseDto<bool>> UpdateAsync(ProductUpdateDto dto)
         {
-            var response= await _repository.UpdateAsync(dto);
-            if(!response)
+            var response = await _repository.UpdateAsync(dto);
+            if (!response)
                 return ResponseDto<bool>.Fail(new List<string> { "kayıt esnasında bir hata meydana geldi" }, System.Net.HttpStatusCode.InternalServerError);
 
             return ResponseDto<bool>.Success(true, System.Net.HttpStatusCode.NoContent);
